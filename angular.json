@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "WebFrontend"
+    }
+  },
+  "defaultProject": "WebFrontend",
+  "cli": {
+    "analytics": false
+  }
 }
