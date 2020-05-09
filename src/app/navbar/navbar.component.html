@@ -3,7 +3,6 @@
     <button class="navbar-toggler" type="button" (click)="toggleNavbar()" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-  
     <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngClass]="{'show': navbarOpen}">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
@@ -14,13 +13,8 @@
         <li class="nav-item">
           <a class="nav-link" routerLinkActive='active' [routerLink]="['/contact']">Contact</a>
         </li>
-        
         <li class="nav-item">
           <a class="nav-link" routerLinkActive='active' [routerLink]="['/login']">Sign in</a>
-        </li>
-        
-        <li class="nav-item">
-          <a class="nav-link disabled">Disabled</a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
