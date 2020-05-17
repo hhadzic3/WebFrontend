@@ -8,11 +8,10 @@ import { ApiService } from '../api.service';
 })
 export class LoginComponent implements OnInit {
 
-  loginData = { username:'' , password:''};
+  loginData = { user_name:'' , password:''};
 
   post(){
     this.apiService.login(this.loginData);
-    console.log(this.loginData);
   }
 
   constructor(private apiService : ApiService) { }
