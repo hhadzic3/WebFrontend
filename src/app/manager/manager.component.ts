@@ -1,15 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AuthenticationService, UserDetails } from '../authentication.service'
 @Component({
   selector: 'app-manager',
   templateUrl: './manager.component.html',
   styleUrls: ['./manager.component.css']
 })
 export class ManagerComponent implements OnInit {
+  details: UserDetails
 
-  constructor() { }
+  constructor(private auth: AuthenticationService) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.auth.profile().subscribe(
+      user => {
+        this.details = user
+      },
+      err => {
+        console.error(err)
+      }
+    )
   }
-
 }

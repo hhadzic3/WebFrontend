@@ -1,12 +1,34 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
-import {Router} from '@angular/router';
+import { AuthenticationService, TokenPayload } from '../authentication.service'
+import { Router } from '@angular/router'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  credentials: TokenPayload = {
+    id: 0,
+    first_name: '',
+    last_name: '',
+    email: '',
+    password: ''
+  }
+
+  constructor(private auth: AuthenticationService, private router: Router) {}
+
+  login() {
+    this.auth.login(this.credentials).subscribe(
+      () => {
+        this.router.navigateByUrl('/profile')
+      },
+      err => {
+        console.error(err)
+      }
+    )
+  }
+  
   mark1 : boolean = false;
   mark2 : boolean = false;
 
@@ -29,8 +51,11 @@ export class LoginComponent implements OnInit {
     this.mark1 = false;
   }
 }
+ngOnInit(): void {
+}
 
 
+/*
 function1(){
   if (this.mark1) 
    this.router.navigate(['/mechanic']);
@@ -42,8 +67,6 @@ function1(){
   }
 
   constructor(private apiService : ApiService,private router: Router ) { }
-
-  ngOnInit(): void {
-  }
-
+*/
+ 
 }
