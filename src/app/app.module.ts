@@ -19,6 +19,9 @@ import { NewVehicleComponent } from './manager/new-vehicle/new-vehicle.component
 import { InProgressComponent } from './manager/in-progress/in-progress.component';
 import { TasksComponent } from './mechanic/tasks/tasks.component';
 import { RewievsComponent } from './mechanic/rewievs/rewievs.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import {DemoMaterialModule} from './material.module';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,9 @@ import { RewievsComponent } from './mechanic/rewievs/rewievs.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    DemoMaterialModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]
