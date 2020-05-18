@@ -20,7 +20,19 @@
                                   <input type="password" class="form-control form-control-lg rounded-0" [(ngModel)]="loginData.password" name="password" id="password" required="" autocomplete="new-password">
                                   <div class="invalid-feedback">Enter your password too!</div>
                               </div>
-                              <button type="submit" (click)="post()" class="btn btn-success btn-lg float-right" id="btnLogin">Login</button>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                                <label class="form-check-label" for="exampleRadios1">
+                                  Manager
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                                <label class="form-check-label" for="exampleRadios2">
+                                  Mechanic
+                                </label>
+                              </div>
+                              <button type="submit" (click)="post()" class="btn btn-success btn-lg float-right" [routerLink]="['/manager']" id="btnLogin">Login</button>
                           </form>
                       </div>
                       <!--/card-block-->

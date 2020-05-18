@@ -12,6 +12,13 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { ContactComponent } from './contact/contact.component';
 import { FooterComponent } from './footer/footer.component';
+import { MechanicComponent } from './mechanic/mechanic.component';
+import { ManagerComponent } from './manager/manager.component';
+import { VehiclesComponent } from './manager/vehicles/vehicles.component';
+import { NewVehicleComponent } from './manager/new-vehicle/new-vehicle.component';
+import { InProgressComponent } from './manager/in-progress/in-progress.component';
+import { TasksComponent } from './mechanic/tasks/tasks.component';
+import { RewievsComponent } from './mechanic/rewievs/rewievs.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +27,14 @@ import { FooterComponent } from './footer/footer.component';
     HomeComponent,
     LoginComponent,
     ContactComponent,
-    FooterComponent
+    FooterComponent,
+    MechanicComponent,
+    ManagerComponent,
+    VehiclesComponent,
+    NewVehicleComponent,
+    InProgressComponent,
+    TasksComponent,
+    RewievsComponent
   ],
   imports: [
     BrowserModule,
