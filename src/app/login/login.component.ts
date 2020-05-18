@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
     first_name: '',
     last_name: '',
     email: '',
+    user_name: '',
     password: ''
   }
 
@@ -21,7 +22,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.auth.login(this.credentials).subscribe(
       () => {
-        this.router.navigateByUrl('/profile')
+        this.router.navigate(['/mechanic']);
       },
       err => {
         console.error(err)
@@ -29,6 +30,10 @@ export class LoginComponent implements OnInit {
     )
   }
   
+ngOnInit(): void {
+}
+
+  /*
   mark1 : boolean = false;
   mark2 : boolean = false;
 
@@ -50,11 +55,7 @@ export class LoginComponent implements OnInit {
    else {this.mark2 = true;
     this.mark1 = false;
   }
-}
-ngOnInit(): void {
-}
-
-
+}*/
 /*
 function1(){
   if (this.mark1) 
@@ -65,7 +66,6 @@ function1(){
   post(){
     this.apiService.login(this.loginData);
   }
-
   constructor(private apiService : ApiService,private router: Router ) { }
 */
  

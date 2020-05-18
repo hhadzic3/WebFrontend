@@ -3,6 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { ApiService } from './api.service';
+import { AuthenticationService } from './authentication.service';
+import { AuthGuardService } from './auth-guard.service';
+
+
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -47,7 +51,7 @@ import {DemoMaterialModule} from './material.module';
     BrowserAnimationsModule,
     DemoMaterialModule
   ],
-  providers: [ApiService],
+  providers: [ApiService,AuthenticationService,AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -9,6 +9,7 @@ export interface UserDetails {
   first_name: string
   last_name: string
   email: string
+  user_name: string
   password: string
   exp: number
   iat: number
@@ -23,6 +24,7 @@ export interface TokenPayload {
   first_name: string
   last_name: string
   email: string
+  user_name: string
   password: string
 }
 
@@ -64,13 +66,14 @@ export class AuthenticationService {
       return false
     }
   }
+  url: string = 'http://localhost:8080';
 
   public register(user: TokenPayload): Observable<any> {
-    return this.http.post(`/users/register`, user)
+    return this.http.post(this.url + `/api/register`, user)
   }
 
   public login(user: TokenPayload): Observable<any> {
-    const base = this.http.post(`/users/login`, user)
+    const base = this.http.post(this.url + `/api/login`, user)
 
     const request = base.pipe(
       map((data: TokenResponse) => {
@@ -85,7 +88,7 @@ export class AuthenticationService {
   }
 
   public profile(): Observable<any> {
-    return this.http.get(`/users/profile`, {
+    return this.http.get(this.url + `/api/profile`, {
       headers: { Authorization: ` ${this.getToken()}` }
     })
   }
