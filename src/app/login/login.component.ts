@@ -8,21 +8,31 @@ import { Router } from '@angular/router'
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  
   credentials: TokenPayload = {
     id: 0,
     first_name: '',
     last_name: '',
-    email: '',
+    position: '',
+    mail: '',
     user_name: '',
     password: ''
   }
+  
 
   constructor(private auth: AuthenticationService, private router: Router) {}
+  makeRoute(){
+    var job = this.auth.getUserDetails()?.position;
 
+    if (job == 'MENADZER' || job == 'MANAGER')
+      this.router.navigate(['/manager']);
+    else this.router.navigate(['/mechanic']);
+
+  }
   login() {
     this.auth.login(this.credentials).subscribe(
-      () => {
-        this.router.navigate(['/mechanic']);
+      () => { 
+        this.makeRoute();
       },
       err => {
         console.error(err)
@@ -33,40 +43,4 @@ export class LoginComponent implements OnInit {
 ngOnInit(): void {
 }
 
-  /*
-  mark1 : boolean = false;
-  mark2 : boolean = false;
-
-  toggleEditable(event) {
-    if ( event.target.checked ) {
-        this.mark1 = false;
-        this.mark2 = true;
-   }
-   else{ 
-     this.mark1 = true;
-     this.mark2 = true;
-   }
-}
-  toggleEditable2(event) {
-    if ( event.target.checked ) {
-        this.mark2 = false;
-        this.mark1 = true;
-   }
-   else {this.mark2 = true;
-    this.mark1 = false;
-  }
-}*/
-/*
-function1(){
-  if (this.mark1) 
-   this.router.navigate(['/mechanic']);
-  else this.router.navigate(['/manager']);
-}
-  loginData = { user_name:'' , password:''};
-  post(){
-    this.apiService.login(this.loginData);
-  }
-  constructor(private apiService : ApiService,private router: Router ) { }
-*/
- 
 }

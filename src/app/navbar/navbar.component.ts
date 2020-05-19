@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router'
 import { AuthenticationService } from '.././authentication.service'
 @Component({
   selector: 'app-navbar',
@@ -9,7 +9,7 @@ import { AuthenticationService } from '.././authentication.service'
 export class NavbarComponent implements OnInit {
 
   public navbarOpen = false;
-  constructor(public auth: AuthenticationService) { }
+  constructor(public auth: AuthenticationService,private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -17,4 +17,13 @@ export class NavbarComponent implements OnInit {
   toggleNavbar(){
     this.navbarOpen = !this.navbarOpen;
   }
+  makeRoute(){
+    var job = this.auth.getUserDetails()?.position;
+
+    if (job == 'MENADZER' || job == 'MANAGER')
+      this.router.navigate(['/manager']);
+    else this.router.navigate(['/mechanic']);
+
+  }
+
 }

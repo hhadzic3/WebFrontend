@@ -1,15 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AuthenticationService, UserDetails } from '../authentication.service'
 @Component({
   selector: 'app-mechanic',
   templateUrl: './mechanic.component.html',
   styleUrls: ['./mechanic.component.css']
 })
 export class MechanicComponent implements OnInit {
+  details: UserDetails
 
-  constructor() { }
+  constructor(private auth: AuthenticationService) { }
 
   ngOnInit(): void {
+    this.auth.profile().subscribe(
+      user => {
+        this.details = user
+      },
+      err => {
+        console.error(err)
+      }
+    )
   }
 
 }

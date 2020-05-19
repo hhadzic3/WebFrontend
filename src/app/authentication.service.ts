@@ -8,7 +8,8 @@ export interface UserDetails {
   id: number
   first_name: string
   last_name: string
-  email: string
+  mail: string
+  position: string
   user_name: string
   password: string
   exp: number
@@ -23,7 +24,8 @@ export interface TokenPayload {
   id: number
   first_name: string
   last_name: string
-  email: string
+  mail: string
+  position: string
   user_name: string
   password: string
 }
