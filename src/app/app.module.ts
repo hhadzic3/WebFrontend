@@ -6,7 +6,6 @@ import { ApiService } from './api.service';
 import { AuthenticationService } from './authentication.service';
 import { AuthGuardService } from './auth-guard.service';
 
-
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,9 +22,18 @@ import { NewVehicleComponent } from './manager/new-vehicle/new-vehicle.component
 import { InProgressComponent } from './manager/in-progress/in-progress.component';
 import { TasksComponent } from './mechanic/tasks/tasks.component';
 import { RewievsComponent } from './mechanic/rewievs/rewievs.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ReactiveFormsModule} from '@angular/forms';
+import {MatNativeDateModule} from '@angular/material/core';
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
+
 
 import {DemoMaterialModule} from './material.module';
+
+
 
 @NgModule({
   declarations: [
@@ -49,9 +57,15 @@ import {DemoMaterialModule} from './material.module';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    DemoMaterialModule
+    FormsModule,
+    HttpClientModule,
+    DemoMaterialModule,
+    MatNativeDateModule,
+    ReactiveFormsModule
   ],
-  providers: [ApiService,AuthenticationService,AuthGuardService],
-  bootstrap: [AppComponent]
+  providers: [ApiService,AuthenticationService,AuthGuardService,{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } }],
+  bootstrap: [AppComponent,NewVehicleComponent],
+  entryComponents: [NewVehicleComponent]
 })
-export class AppModule { }
+export class AppModule { 
+}
