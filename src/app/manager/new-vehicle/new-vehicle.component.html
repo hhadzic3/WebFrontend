@@ -15,19 +15,17 @@
       </mat-error>
     </mat-form-field>
 
-
-  
-      <mat-form-field>
-        <mat-label>Type of vehicle</mat-label>
-        <mat-select [formControl]="animalControl" required>
-          <mat-option>--</mat-option>
-          <mat-option *ngFor="let animal of animals" [value]="animal">
-            {{animal.name}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
-        <mat-hint>{{animalControl.value?.sound}}</mat-hint>
-      </mat-form-field>
+    <mat-form-field>
+      <mat-label>Type of vehicle</mat-label>
+      <mat-select [formControl]="animalControl" required>
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let animal of animals" [value]="animal">
+          {{animal.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
+      <mat-hint>{{animalControl.value?.sound}}</mat-hint>
+    </mat-form-field>
 
     <mat-form-field class="form-element">
       <input matInput placeholder="Serial number" formControlName="number">
@@ -35,7 +33,7 @@
         {{ titleAlert }}
       </mat-error>
     </mat-form-field>
-    
+
     <mat-form-field>
       <mat-label>Date of birth</mat-label>
       <input matInput [matDatepicker]="picker" formControlName="date1">
@@ -45,9 +43,9 @@
         {{ titleAlert }}
       </mat-error>
     </mat-form-field>
-    
+
     <br>
-    
+
     <mat-form-field>
       <mat-label>Last technical rewiev</mat-label>
       <input matInput [matDatepicker]="picker1" formControlName="date2">
@@ -57,7 +55,7 @@
         {{ titleAlert }}
       </mat-error>
     </mat-form-field>
-    
+
     <div class="form-element">
       <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Submit
         Form</button>

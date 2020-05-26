@@ -1,7 +1,7 @@
 import { Component, OnInit,Inject } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
-
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 export interface PeriodicElement {
   vehicle: string;
   position: number;
@@ -53,13 +53,23 @@ export interface DialogData {
   animal: string;
   name: string;
 }
-
+interface Animal {
+  name: string;
+  sound: string;
+}
 
 @Component({
   selector: 'dialog-overview-example-dialog',
   templateUrl: './dialog-overview-example-dialog.html',
 })
 export class DialogOverviewExampleDialog {
+
+  animalControl = new FormControl('', Validators.required);
+  selectFormControl = new FormControl('', Validators.required);
+  animals: Animal[] = [
+    {name: 'Hamo', sound: 'Puntnicko!'},
+    {name: 'Tarik', sound: 'Teretno!'}
+  ];
 
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
