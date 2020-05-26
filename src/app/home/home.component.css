@@ -10,3 +10,10 @@
 .carousel-inner {
     margin-top: 3%;
 }
+
+.carousel-caption {
+    background-color: gray;
+    opacity: 0.9;
+    height: 70px;
+    border-radius: 10px 10px;
+}
