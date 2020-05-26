@@ -40,7 +40,7 @@
       <mat-label>Date of birth</mat-label>
       <input matInput [matDatepicker]="picker" formControlName="date1">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+      <mat-datepicker startView="year" #picker></mat-datepicker>
       <mat-error *ngIf="!date1.valid && date1.touched">
         {{ titleAlert }}
       </mat-error>
@@ -50,9 +50,9 @@
     
     <mat-form-field>
       <mat-label>Last technical rewiev</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="date2">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+      <input matInput [matDatepicker]="picker1" formControlName="date2">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1 startView="year" [startAt]="startDate"></mat-datepicker>
       <mat-error *ngIf="!date2.valid && date2.touched">
         {{ titleAlert }}
       </mat-error>
