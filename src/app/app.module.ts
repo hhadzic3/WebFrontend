@@ -22,7 +22,7 @@ import { NewVehicleComponent } from './manager/new-vehicle/new-vehicle.component
 import { InProgressComponent } from './manager/in-progress/in-progress.component';
 import { TasksComponent } from './mechanic/tasks/tasks.component';
 import { RewievsComponent } from './mechanic/rewievs/rewievs.component';
-
+import {DialogOverviewExampleDialog} from './manager/vehicles/vehicles.component'
 import { ReactiveFormsModule} from '@angular/forms';
 import {MatNativeDateModule} from '@angular/material/core';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
@@ -49,7 +49,8 @@ import {DemoMaterialModule} from './material.module';
     NewVehicleComponent,
     InProgressComponent,
     TasksComponent,
-    RewievsComponent
+    RewievsComponent,
+    DialogOverviewExampleDialog
   ],
   imports: [
     BrowserModule,
