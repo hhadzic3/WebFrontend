@@ -65,8 +65,8 @@ import {DemoMaterialModule} from './material.module';
     ReactiveFormsModule
   ],
   providers: [ApiService,AuthenticationService,AuthGuardService,{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } }],
-  bootstrap: [AppComponent,NewVehicleComponent],
-  entryComponents: [NewVehicleComponent]
+  bootstrap: [AppComponent],
+  entryComponents: []
 })
 export class AppModule { 
 }
