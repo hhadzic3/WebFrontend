@@ -1,10 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 
+
+export interface vehicle {
+  vehicle: string;
+  type: string;
+  owner: string;
+}
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.css']
 })
+
 export class TasksComponent implements OnInit {
   panelOpenState = false;
   constructor() { }
@@ -15,6 +22,11 @@ export class TasksComponent implements OnInit {
     ,   "Karoserija", "Grijanje i Ventilacija",   "Gorivo"
     ,   "Sistem punjenja",   "Sistem paljenja",   "Sistem za hlađenje"
     ,   "Brave/alarmi",   "Kočnice",   "Stakla",   "Svjetla"];
+
+    Vehicles: vehicle[] = [
+      { vehicle: 'Hydrogen', type: "transport", owner: 'H' },
+      { vehicle: 'Helium', type: "transport", owner: 'He' }
+    ];
   ngOnInit(): void {
   }
 

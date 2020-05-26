@@ -1,8 +1,8 @@
-<div class="card" style="margin: 30px;" >
-    <h5 class="card-header">Mercedes Benz</h5>
+<div class="card" style="margin: 30px;" *ngFor="let vehicle of Vehicles" >
+    <h5 class="card-header">{{vehicle.vehicle}}</h5>
     <div class="card-body">
-      <h5 class="card-title">Transport vehicle</h5>
-      <p class="card-text">Owner: Mehinjo</p>
+      <h5 class="card-title">{{vehicle.type}}</h5>
+      <p class="card-text">Owner: {{vehicle.owner}}</p>
       <mat-accordion>
         <mat-expansion-panel (opened)="panelOpenState = true"
                              (closed)="panelOpenState = false">

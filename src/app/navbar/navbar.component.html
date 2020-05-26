@@ -18,7 +18,7 @@
           <a class="nav-link" routerLink="" (click)="auth.logout()">Logout</a>
         </li>
         <li *ngIf="auth.isLoggedIn()" class="nav-item">
-          <a class="nav-link" (click)="makeRoute()">{{ auth.getUserDetails()?.first_name }}</a>
+          <button style="background-color: transparent;"><a class="nav-link" (click)="makeRoute()">Welcome {{ auth.getUserDetails()?.first_name }}</a></button>
         </li>
       </ul>
     </div>

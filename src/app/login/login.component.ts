@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { AuthenticationService, TokenPayload } from '../authentication.service'
 import { Router } from '@angular/router'
+import {MatDialog} from '@angular/material/dialog';
+
+import {MatDialogRef} from '@angular/material/dialog';
 
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 @Component({
@@ -11,6 +14,10 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 })
 export class LoginComponent implements OnInit {
   
+
+  openDialog() {
+    this.dialog.open(Alert);
+  }
   credentials: TokenPayload = {
     id: 0,
     first_name: '',
@@ -21,7 +28,7 @@ export class LoginComponent implements OnInit {
     password: ''
   }
   formGroup: FormGroup;
-  constructor(private auth: AuthenticationService, private router: Router,private formBuilder: FormBuilder) {}
+  constructor(private auth: AuthenticationService, private router: Router,private formBuilder: FormBuilder,public dialog: MatDialog) {}
   makeRoute(){
     var job = this.auth.getUserDetails()?.position;
     if (job == 'MENADZER' || job == 'MANAGER')
@@ -35,25 +42,19 @@ export class LoginComponent implements OnInit {
         this.makeRoute();
       },
       err => {
-        console.error(err)
+        this.openDialog();
       }
     )
   }
-  
-  
-
   ngOnInit() {
     this.createForm();
   }
-
   createForm() {
     this.formGroup = this.formBuilder.group({
       'username': ['', Validators.required],
       'password': ['', Validators.required],
     });
   }
-
-
   getError(el) {
     switch (el) {
       case 'user':
@@ -70,9 +71,18 @@ export class LoginComponent implements OnInit {
         return '';
     }
   }
-
   onSubmit(post) {
-    // this.post = post;
   }
+}
 
+
+@Component({
+  selector: 'alert',
+  templateUrl: 'alert.html',
+})
+export class Alert {
+  constructor(public dialogRef: MatDialogRef<Alert>) {}
+  onCClick(): void {
+    this.dialogRef.close();
+  }
 }

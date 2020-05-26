@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
-
 export interface PeriodicElement {
   vehicle: string;
   position: number;
@@ -19,7 +18,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./in-progress.component.css']
 })
 export class InProgressComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'vehicle', 'type', 'owner' , 'rewiev_done_by'];
+  displayedColumns: string[] = ['position',  'vehicle', 'type', 'owner' , 'rewiev_done_by'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   applyFilter(event: Event) {
