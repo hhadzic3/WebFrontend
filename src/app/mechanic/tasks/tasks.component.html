@@ -1,4 +1,7 @@
-<div class="card" style="margin: 30px;" *ngFor="let vehicle of Vehicles" >
+<div *ngIf="veh.length === 0" class="alert alert-primary" role="alert">
+  Awsomee, you done all tehnical reviews! You are free now!
+</div> 
+<div class="card" style="margin: 30px;" *ngFor="let vehicle of veh" >
     <h5 class="card-header">{{vehicle.vehicle}}</h5>
     <div class="card-body">
       <h5 class="card-title">{{vehicle.type}}</h5>

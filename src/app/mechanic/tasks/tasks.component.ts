@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
+import { ApiService } from 'src/app/services/api.service';
+import { Vehicles } from 'src/app/classes/vehicles';
+import { Reviews } from 'src/app/classes/reviews';
+import { UserDetails, AuthenticationService } from 'src/app/services/authentication.service';
 
 export interface vehicle {
   vehicle: string;
@@ -14,20 +17,39 @@ export interface vehicle {
 
 export class TasksComponent implements OnInit {
   panelOpenState = false;
-  constructor() { }
   typesOfThings: string[] = [ "Idetifikacija osobe i vozila (provjera dokumentacije i identiteta vlasnika i vozila)"
-    ,   "Vizuelna inspekcija automobila","Detaljna analiza"
-    ,   "Elektrika",   "Motor i izduvni sistem",   "Upravljački mehanizam / vješanje"
-    ,   "Sistem za prijenos snage / transmisija"
-    ,   "Karoserija", "Grijanje i Ventilacija",   "Gorivo"
+  ,   "Vizuelna inspekcija automobila","Detaljna analiza"
+  ,   "Elektrika",   "Motor i izduvni sistem",   "Upravljački mehanizam / vješanje"
+  ,   "Sistem za prijenos snage / transmisija"
+  ,   "Karoserija", "Grijanje i Ventilacija",   "Gorivo"
     ,   "Sistem punjenja",   "Sistem paljenja",   "Sistem za hlađenje"
     ,   "Brave/alarmi",   "Kočnice",   "Stakla",   "Svjetla"];
+    
+    veh: vehicle[] = [];
 
-    Vehicles: vehicle[] = [
-      { vehicle: 'Hydrogen', type: "transport", owner: 'H' },
-      { vehicle: 'Helium', type: "transport", owner: 'He' }
-    ];
+    vehicles:Vehicles;
+    reviews:Reviews[];
+    details: UserDetails; 
+
+    constructor(private apiService:ApiService,private auth: AuthenticationService) { }
   ngOnInit(): void {
+    this.auth.profile().subscribe(
+      user => {
+        this.details = user
+        this.apiService.getInProgressRviews(this.details.id).subscribe(r=>{
+          this.reviews = r;
+          r.forEach(element => {
+            this.apiService.getRelatedVehicles(element).subscribe(v => {
+              this.vehicles = v;
+              this.veh.push(  { vehicle: v.brand, type: v.type, owner: v.owner_name });
+            });    
+          });
+        })
+      },
+      err => {
+        console.error(err)
+      }
+    )
   }
 
 }

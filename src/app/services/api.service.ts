@@ -18,6 +18,9 @@ export class ApiService {
   getDoneRviews():Observable<Reviews[]>{
     return this.http.get<Reviews[]>( this.url+'/review/state/ZAVRSEN');
   }
+  getInProgressRviews(id:number):Observable<Reviews[]>{
+    return this.http.get<Reviews[]>( this.url+'/review/state/NA PREGLEDU/user/' + id);
+  }
   getRelatedVehicles(review:Reviews): Observable<Vehicles>{
     return this.http.get<Vehicles>( this.url+'/vehicle/' + review.vehicle);
   }
