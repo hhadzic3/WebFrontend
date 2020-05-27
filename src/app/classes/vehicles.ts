@@ -1,5 +1,5 @@
 export class Vehicles{
-    id: string;
+    id: number;
     owner_name: string;
     brand: string;
     type: string
