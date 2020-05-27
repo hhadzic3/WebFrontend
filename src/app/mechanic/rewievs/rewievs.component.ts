@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
+import {ApiService} from '../../services/api.service';
+import {Vehicles} from '../../classes/vehicles';
+import { Reviews } from 'src/app/classes/reviews';
 
 export interface PeriodicElement {
   vehicle: string;
@@ -8,11 +11,7 @@ export interface PeriodicElement {
   owner: string;
   rewiev_done_by: string;
 }
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, vehicle: 'Hydrogen', type: "transport", owner: 'H' ,rewiev_done_by: 'Hamo' },
-  {position: 2, vehicle: 'Helium', type: "transport", owner: 'He' , rewiev_done_by: 'Hamo'}
-];
+var ELEMENT_DATA: PeriodicElement[];
 @Component({
   selector: 'app-rewievs',
   templateUrl: './rewievs.component.html',
@@ -27,9 +26,21 @@ export class RewievsComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  constructor() { }
+  vehicles:Vehicles[];
+  reviews:Reviews[];
 
-  ngOnInit(): void {
+  constructor(private apiService:ApiService) { }
+
+  ngOnInit() {
+    this.apiService.getDoneRviews().subscribe(arg => this.reviews = arg);
+    this.reviews.forEach(element => {
+      this.apiService.getRelatedVehicles(element).subscribe(arg => this.vehicles.push(arg));
+    });
+    
+    this.vehicles.forEach(element => {
+      ELEMENT_DATA.push({position: 1, vehicle: 'Hydrogen', type: "transport", owner: 'H' ,rewiev_done_by: 'Hamo' });
+    });
+    
   }
-
+  
 }
