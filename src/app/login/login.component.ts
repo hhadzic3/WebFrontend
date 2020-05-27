@@ -13,8 +13,6 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  
-
   openDialog() {
     this.dialog.open(Alert);
   }
@@ -31,7 +29,7 @@ export class LoginComponent implements OnInit {
   constructor(private auth: AuthenticationService, private router: Router,private formBuilder: FormBuilder,public dialog: MatDialog) {}
   makeRoute(){
     var job = this.auth.getUserDetails()?.position;
-    if (job == 'MENADZER' || job == 'MANAGER')
+    if (job == 'MENADZER' || job == 'MANAGER' || job == 'ADMINISTRATOR' )
       this.router.navigate(['/manager']);
     else this.router.navigate(['/mechanic']);
   }
