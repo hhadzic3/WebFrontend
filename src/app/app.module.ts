@@ -2,9 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { ApiService } from './api.service';
-import { AuthenticationService } from './authentication.service';
-import { AuthGuardService } from './auth-guard.service';
+import { ApiService } from './services/api.service';
+import { AuthenticationService } from './services/authentication.service';
+import { AuthGuardService } from './services/auth-guard.service';
 
 import { HttpClientModule } from '@angular/common/http';
 

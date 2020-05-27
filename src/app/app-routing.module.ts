@@ -11,7 +11,7 @@ import {InProgressComponent} from './manager/in-progress/in-progress.component'
 
 import {TasksComponent} from './mechanic/tasks/tasks.component'
 import {RewievsComponent} from './mechanic/rewievs/rewievs.component'
-import { AuthGuardService } from './auth-guard.service';
+import { AuthGuardService } from './services/auth-guard.service';
 
 
 const routes: Routes = [

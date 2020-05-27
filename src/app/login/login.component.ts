@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../api.service';
-import { AuthenticationService, TokenPayload } from '../authentication.service'
+import { ApiService } from '../services/api.service';
+import { AuthenticationService, TokenPayload } from '../services/authentication.service'
 import { Router } from '@angular/router'
 import {MatDialog} from '@angular/material/dialog';
 
