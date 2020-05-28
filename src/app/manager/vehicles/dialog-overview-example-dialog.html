@@ -1,20 +1,23 @@
-<div mat-dialog-content>
-  <p>Chose one mechanic!</p>
-  
-  <mat-form-field>
-    <mat-label>Mechanic: </mat-label>
-    <mat-select [formControl]="animalControl" required>
-      <mat-option>--</mat-option>
-      <mat-option *ngFor="let mechanic of mechanics" [value]="mechanic">
-        {{mechanic.name}}
-      </mat-option>
-    </mat-select>
-    <mat-error *ngIf="animalControl.hasError('required')">Please choose mechanic</mat-error>
-    <mat-hint>{{animalControl.value?.sound}}</mat-hint>
-  </mat-form-field>
 
+<div mat-dialog-content>
+  <p>Chose mechanic!</p>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input type="text"
+             placeholder="Pick one"
+             aria-label="Number"
+             matInput
+             [formControl]="myControl"
+             [matAutocomplete]="auto" [(ngModel)]="data.animal">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of options" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data.mechanic" (click)="onOkClick()" cdkFocusInitial>Ok</button>
+  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
 </div>

@@ -36,6 +36,9 @@ export class ApiService {
   getRelatedUsers(review:Reviews): Observable<Users>{
     return this.http.get<Users>( this.url+'/user/' + review.responsible_person);
   }
+  getUser(name:string): Observable<Users>{
+    return this.http.get<Users>( this.url+'/user/username/' + name);
+  }
   updatePutReview(revId:number , state:string) : Observable<Object>{
     var string = '{"state": "ZAVRSEN"}';
     var review = JSON.parse(string);
@@ -43,9 +46,7 @@ export class ApiService {
     return this.http.put( this.url+'/review/'+ revId , review);
   }
   postReview(rev) : Observable<Object>{
-    var review = JSON.parse(rev);
-    console.log(review);
-    return this.http.post( this.url+'/review' , review);
+    return this.http.post( this.url+'/review' , rev);
   }
   postVehicle(v) : Observable<Object>{
     return this.http.post( this.url+'/vehicle' , v);

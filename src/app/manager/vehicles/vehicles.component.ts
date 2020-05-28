@@ -3,11 +3,17 @@ import {MatTableDataSource} from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 export interface PeriodicElement {
+  id:number;
   vehicle: string;
   type: string;
   owner: string;
 }
 
+
+export interface DialogData {
+  animal: string;
+  name: string;
+}
 @Component({
   selector: 'app-vehicles',
   templateUrl: './vehicles.component.html',
@@ -23,11 +29,34 @@ export class VehiclesComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  animal: string;
+  name: string;
   mechanic: string;
   vehicles:Vehicles[];
   reviews:Reviews[];
   
-  constructor(public dialog: MatDialog,private apiService:ApiService) {}
+  constructor(public dialog: MatDialog,private apiService:ApiService,private router: Router) {}
+  
+  el : PeriodicElement;
+  openDialog(element:PeriodicElement): void {
+    this.el = element;
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+      width: '250px',
+      data: {name: this.name, animal: this.animal}
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      this.animal = result;
+      console.log(this.el);
+      this.apiService.getUser(result).subscribe(data => {
+        var object  = {state:'NA PREGLEDU', kind: 'REGULARNI', responsible_person:data.id, vehicle:this.el.id }
+        this.apiService.postReview(object).subscribe(d => console.log(d));
+        this.router.navigate(['/manager/inProgess']);
+      })
+    
+    });
+  }
 
   ngOnInit(): void {
     this.apiService.getAllVehicles().subscribe(v => {
@@ -42,26 +71,12 @@ export class VehiclesComponent implements OnInit {
           }
           this.reviews = r;
           if (!userExists(elementV.id)) {
-            this.ELEMENT_DATA.push({ vehicle: elementV.brand , type: elementV.type, owner: elementV.owner_name });
+            this.ELEMENT_DATA.push({ id : elementV.id,vehicle: elementV.brand , type: elementV.type, owner: elementV.owner_name });
             this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
           }
         })
       });
     })
-  }
-  el : PeriodicElement;
-  openDialog(element:PeriodicElement): void {
-    this.el = element;
-    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-      width: '250px',
-      data: { mechanic: this.mechanic}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.mechanic = result;
-      console.log(result);
-      console.log(this.el);
-    });
   }
 }
 
@@ -69,16 +84,8 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { Vehicles } from 'src/app/classes/vehicles';
 import { Reviews } from 'src/app/classes/reviews';
 import { ApiService } from 'src/app/services/api.service';
-import { element } from 'protractor';
+import { Router } from '@angular/router';
 
-export interface DialogData {
-  mechanic: string;
-  name: string;
-}
-interface Mechanic {
-  name: string;
-  sound: string;
-}
 
 @Component({
   selector: 'dialog-overview-example-dialog',
@@ -86,10 +93,8 @@ interface Mechanic {
 })
 export class DialogOverviewExampleDialog implements OnInit {
 
-  animalControl = new FormControl('', Validators.required);
-  selectFormControl = new FormControl('', Validators.required);
-  mechanics: Mechanic[] = [];
-
+  myControl = new FormControl();
+  options: string[] = [];
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData , private apisevice : ApiService) {}
@@ -97,7 +102,7 @@ export class DialogOverviewExampleDialog implements OnInit {
     ngOnInit(): void {
       this.apisevice.getAllUsers('RADNIK').subscribe(data => {
         data.forEach(d => {
-          this.mechanics.push({name: d.first_name , sound: 'Great!'})
+          this.options.push( d.first_name )
         });
       })
     }
@@ -105,7 +110,5 @@ export class DialogOverviewExampleDialog implements OnInit {
     this.dialogRef.close();
   }
 
-  onOkClick(): void {
-    this.dialogRef.close();
-  }
+  
 }
