@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable }    from 'rxjs/Observable';
+import { ApiService } from 'src/app/services/api.service';
+import { Router } from '@angular/router';
 
-interface Animal {
-  name: string;
-  sound: string;
-}
+
 @Component({
   selector: 'app-new-vehicle',
   templateUrl: './new-vehicle.component.html',
@@ -14,19 +13,15 @@ interface Animal {
 export class NewVehicleComponent implements OnInit {
   startDate = new Date(1990, 0, 1);
 
-  animalControl = new FormControl('', Validators.required);
-  selectFormControl = new FormControl('', Validators.required);
-  animals: Animal[] = [
-    {name: 'Putnicko', sound: 'Puntnicko!'},
-    {name: 'Teretno', sound: 'Teretno!'},
-    {name: 'Priključno', sound: 'Prikljucno!'}
-  ];
+  /*type = new FormControl('', Validators.required);
+  selectFormControl = new FormControl('', Validators.required);*/
+  animals: string[] = ['PUTNICKO', 'TERETNO','PRIKLJUCNO'];
 
   formGroup: FormGroup;
   titleAlert: string = 'This field is required';
   post: any = '';
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,private apiService:ApiService,private router: Router) { }
 
   ngOnInit() {
     this.createForm();
@@ -35,6 +30,7 @@ export class NewVehicleComponent implements OnInit {
   createForm() {
      this.formGroup = this.formBuilder.group({
       'Vname': [null, Validators.required],
+      'type': [null, Validators.required],
       'date1': [null, Validators.required],
       'date2': [null, Validators.required],
       'number': [null, Validators.required],
@@ -46,6 +42,9 @@ export class NewVehicleComponent implements OnInit {
 
   get Vname() {
     return this.formGroup.get('Vname') as FormControl
+  }
+  get type() {
+    return this.formGroup.get('type') as FormControl
   }
   get date1() {
     return this.formGroup.get('date1') as FormControl
@@ -61,6 +60,11 @@ export class NewVehicleComponent implements OnInit {
   }
 
   onSubmit(post) {
-    this.post = post;
+    var v = { owner_name: post.owner,brand: post.Vname ,type: post.type,
+    serial_number: post.number,production_year: "1999",date_of_use: post.date1,previous_inspection: post.date2}
+    this.apiService.postVehicle(v).subscribe(arg => {
+      console.log(arg)
+      this.router.navigate(['/manager/vehicles']);
+    });
   }
 }

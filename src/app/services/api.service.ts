@@ -42,6 +42,14 @@ export class ApiService {
     console.log(review);
     return this.http.put( this.url+'/review/'+ revId , review);
   }
+  postReview(rev) : Observable<Object>{
+    var review = JSON.parse(rev);
+    console.log(review);
+    return this.http.post( this.url+'/review' , review);
+  }
+  postVehicle(v) : Observable<Object>{
+    return this.http.post( this.url+'/vehicle' , v);
+  }
 
 
 }
