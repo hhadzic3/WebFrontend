@@ -31,8 +31,8 @@ export class RewievsComponent implements OnInit {
   constructor(private apiService:ApiService) { }
   
   ngOnInit() : void{
-    this.apiService.getDoneRviews().subscribe(r=>{
-     
+    this.apiService.getDoneRviews('ZAVRSEN').subscribe(r=>{
+
       this.reviews = r;
       r.forEach(element => {
         this.apiService.getRelatedVehicles(element).subscribe(v => {

@@ -4,16 +4,9 @@ import {SelectionModel} from '@angular/cdk/collections';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 export interface PeriodicElement {
   vehicle: string;
-  position: number;
   type: string;
   owner: string;
-  rewiev_done_by: string;
 }
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, vehicle: 'Hydrogen', type: "transport", owner: 'H' ,rewiev_done_by: 'Hamo' },
-  {position: 2, vehicle: 'Helium', type: "transport", owner: 'He' , rewiev_done_by: 'Hamo'}
-];
 
 @Component({
   selector: 'app-vehicles',
@@ -22,16 +15,43 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class VehiclesComponent implements OnInit {
 
-  displayedColumns: string[] = ['select','position',  'vehicle', 'type', 'owner' , 'rewiev_done_by'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  displayedColumns: string[] = ['select','vehicle', 'type', 'owner' ];
+  ELEMENT_DATA: PeriodicElement[] = [];
+  dataSource = new MatTableDataSource<PeriodicElement>(this.ELEMENT_DATA);
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   animal: string;
+  vehicles:Vehicles[];
+  reviews:Reviews[];
+  
+  constructor(public dialog: MatDialog,private apiService:ApiService) {}
 
-  constructor(public dialog: MatDialog) {}
+  ngOnInit(): void {
+    this.apiService.getAllVehicles().subscribe(v => {
+      this.vehicles = v;
+      this.vehicles.forEach(elementV => {
+
+        this.apiService.getDoneRviews('').subscribe(r=>{
+          function userExists(id) {
+            return r.some(function(el) {
+              return el.vehicle === id;
+            }); 
+          }
+          this.reviews = r;
+          if (!userExists(elementV.id)) {
+            this.ELEMENT_DATA.push({ vehicle: elementV.brand , type: elementV.type, owner: elementV.owner_name });
+            this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+          }
+        })
+      });
+    })
+  }
+
+
+
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
@@ -44,10 +64,13 @@ export class VehiclesComponent implements OnInit {
       this.animal = result;
     });
   }
-  ngOnInit(): void {}
 }
 
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Vehicles } from 'src/app/classes/vehicles';
+import { Reviews } from 'src/app/classes/reviews';
+import { ApiService } from 'src/app/services/api.service';
+import { element } from 'protractor';
 
 export interface DialogData {
   animal: string;

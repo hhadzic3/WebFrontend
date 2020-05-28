@@ -15,8 +15,13 @@ export class ApiService {
 
   constructor(private http : HttpClient) { }
 
-  getDoneRviews():Observable<Reviews[]>{
-    return this.http.get<Reviews[]>( this.url+'/review/state/ZAVRSEN');
+  getDoneRviews(state:string):Observable<Reviews[]>{
+    if (state === '') return this.http.get<Reviews[]>( this.url+'/review');
+    return this.http.get<Reviews[]>( this.url+'/review/state/'+ state);
+  }
+  
+  getAllVehicles():Observable<Vehicles[]>{
+    return this.http.get<Vehicles[]>( this.url+'/vehicle');
   }
   getInProgressRviews(id:number):Observable<Reviews[]>{
     if (id === 0) return this.http.get<Reviews[]>( this.url+'/review/state/NA PREGLEDU');
@@ -29,11 +34,5 @@ export class ApiService {
     return this.http.get<Users>( this.url+'/user/' + review.responsible_person);
   }
 
-  /*
-  login(loginData) {
-    this.http.post( this.url , loginData ).subscribe(res  => {
-      console.log(res);
-    });
-  }*/
 
 }
