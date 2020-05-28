@@ -4,4 +4,5 @@ export class Reviews{
     kind: string // REGULARNI , PREVENTIVNI , VANREDNI
     responsible_person: number
     vehicle: number
+
 }

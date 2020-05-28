@@ -24,8 +24,10 @@
           </mat-selection-list>
           <p>
             Options selected: {{things.selectedOptions.selected.length}}
-            <button style="margin-left: 190px;" mat-raised-button color="primary">Finish</button> 
           </p>
+            <div *ngIf="things.selectedOptions.selected.length === 17">
+              <button style="margin-left: 190px;" mat-raised-button color="primary"  (click)="updateReview(vehicle.RevId)" >Finish</button> 
+            </div>
         </mat-expansion-panel>  
       </mat-accordion>
       

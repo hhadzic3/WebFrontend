@@ -1,5 +1,5 @@
 import { Injectable, ViewChild } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Vehicles } from '../classes/vehicles';
 import { Reviews } from '../classes/reviews';
@@ -35,6 +35,12 @@ export class ApiService {
   }
   getRelatedUsers(review:Reviews): Observable<Users>{
     return this.http.get<Users>( this.url+'/user/' + review.responsible_person);
+  }
+  updatePutReview(revId:number , state:string) : Observable<Object>{
+    var string = '{"state": "ZAVRSEN"}';
+    var review = JSON.parse(string);
+    console.log(review);
+    return this.http.put( this.url+'/review/'+ revId , review);
   }
 
 
