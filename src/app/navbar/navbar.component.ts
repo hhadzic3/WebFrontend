@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit {
   makeRoute(){
     var job = this.auth.getUserDetails()?.position;
 
-    if (job == 'MENADZER' || job == 'MANAGER')
+    if (job == 'MENADZER' || job == 'MANAGER' || job == 'ADMINISTRATOR')
       this.router.navigate(['/manager']);
     else this.router.navigate(['/mechanic']);
 
