@@ -23,7 +23,7 @@ export class VehiclesComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  animal: string;
+  mechanic: string;
   vehicles:Vehicles[];
   reviews:Reviews[];
   
@@ -50,18 +50,14 @@ export class VehiclesComponent implements OnInit {
     })
   }
 
-
-
-
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '250px',
-      data: { animal: this.animal}
+      data: { mechanic: this.mechanic}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.animal = result;
+      this.mechanic = result;
     });
   }
 }
@@ -73,10 +69,10 @@ import { ApiService } from 'src/app/services/api.service';
 import { element } from 'protractor';
 
 export interface DialogData {
-  animal: string;
+  mechanic: string;
   name: string;
 }
-interface Animal {
+interface Mechanic {
   name: string;
   sound: string;
 }
@@ -85,19 +81,23 @@ interface Animal {
   selector: 'dialog-overview-example-dialog',
   templateUrl: './dialog-overview-example-dialog.html',
 })
-export class DialogOverviewExampleDialog {
+export class DialogOverviewExampleDialog implements OnInit {
 
   animalControl = new FormControl('', Validators.required);
   selectFormControl = new FormControl('', Validators.required);
-  animals: Animal[] = [
-    {name: 'Hamo', sound: 'Puntnicko!'},
-    {name: 'Tarik', sound: 'Teretno!'}
-  ];
+  mechanics: Mechanic[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    @Inject(MAT_DIALOG_DATA) public data: DialogData , private apisevice : ApiService) {}
 
+    ngOnInit(): void {
+      this.apisevice.getAllUsers('RADNIK').subscribe(data => {
+        data.forEach(d => {
+          this.mechanics.push({name: d.first_name , sound: 'Great!'})
+        });
+      })
+    }
   onNoClick(): void {
     this.dialogRef.close();
   }

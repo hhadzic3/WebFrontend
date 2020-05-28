@@ -23,6 +23,9 @@ export class ApiService {
   getAllVehicles():Observable<Vehicles[]>{
     return this.http.get<Vehicles[]>( this.url+'/vehicle');
   }
+  getAllUsers(job:string):Observable<Users[]>{
+    return this.http.get<Users[]>( this.url+'/user/position/' + job);
+  }
   getInProgressRviews(id:number):Observable<Reviews[]>{
     if (id === 0) return this.http.get<Reviews[]>( this.url+'/review/state/NA PREGLEDU');
     return this.http.get<Reviews[]>( this.url+'/review/state/NA PREGLEDU/user/' + id);
