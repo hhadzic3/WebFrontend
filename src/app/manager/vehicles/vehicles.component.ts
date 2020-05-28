@@ -15,7 +15,7 @@ export interface PeriodicElement {
 })
 export class VehiclesComponent implements OnInit {
 
-  displayedColumns: string[] = ['select','vehicle', 'type', 'owner' ];
+  displayedColumns: string[] = ['vehicle', 'type', 'owner','select' ];
   ELEMENT_DATA: PeriodicElement[] = [];
   dataSource = new MatTableDataSource<PeriodicElement>(this.ELEMENT_DATA);
   applyFilter(event: Event) {
@@ -49,8 +49,9 @@ export class VehiclesComponent implements OnInit {
       });
     })
   }
-
-  openDialog(): void {
+  el : PeriodicElement;
+  openDialog(element:PeriodicElement): void {
+    this.el = element;
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '250px',
       data: { mechanic: this.mechanic}
@@ -58,6 +59,8 @@ export class VehiclesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.mechanic = result;
+      console.log(result);
+      console.log(this.el);
     });
   }
 }
