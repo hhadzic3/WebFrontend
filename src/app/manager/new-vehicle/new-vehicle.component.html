@@ -33,7 +33,7 @@
     </mat-form-field>
 
     <mat-form-field class="form-element">
-      <mat-label>Date of birth</mat-label>
+      <mat-label>Date of production</mat-label>
       <input matInput [matDatepicker]="picker" formControlName="date1">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker startView="year" #picker></mat-datepicker>
@@ -45,7 +45,7 @@
     <br>
 
     <mat-form-field class="form-element">
-      <mat-label>Last technical rewiev</mat-label>
+      <mat-label>Last technical review</mat-label>
       <input matInput [matDatepicker]="picker1" formControlName="date2">
       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-datepicker #picker1 startView="year" [startAt]="startDate"></mat-datepicker>

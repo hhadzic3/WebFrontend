@@ -52,7 +52,8 @@ export class VehiclesComponent implements OnInit {
       this.apiService.getUser(result).subscribe(data => {
         var object  = {state:'NA PREGLEDU', kind: 'REGULARNI', responsible_person:data.id, vehicle:this.el.id }
         this.apiService.postReview(object).subscribe(d => console.log(d));
-        this.router.navigate(['/manager/inProgess']);
+        //this.router.navigate(['/manager/inProgess']);
+        window.location.reload();
       })
     
     });

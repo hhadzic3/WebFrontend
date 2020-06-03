@@ -11,7 +11,7 @@ import { Users } from '../classes/users';
 
 export class ApiService {
 
-  url : string = 'http://localhost:8080/api';
+  url : string = 'https://ada-backend.herokuapp.com/api';
 
   constructor(private http : HttpClient) { }
 

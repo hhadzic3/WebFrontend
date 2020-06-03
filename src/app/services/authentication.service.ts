@@ -68,14 +68,14 @@ export class AuthenticationService {
       return false
     }
   }
-  url: string = 'http://localhost:8080';
+  url: string = 'https://ada-backend.herokuapp.com/api';
 
   public register(user: TokenPayload): Observable<any> {
-    return this.http.post(this.url + `/api/register`, user)
+    return this.http.post(this.url + `/register`, user)
   }
 
   public login(user: TokenPayload): Observable<any> {
-    const base = this.http.post(this.url + `/api/login`, user)
+    const base = this.http.post(this.url + `/login`, user)
 
     const request = base.pipe(
       map((data: TokenResponse) => {
@@ -90,7 +90,7 @@ export class AuthenticationService {
   }
 
   public profile(): Observable<any> {
-    return this.http.get(this.url + `/api/profile`, {
+    return this.http.get(this.url + `/profile`, {
       headers: { Authorization: ` ${this.getToken()}` }
     })
   }

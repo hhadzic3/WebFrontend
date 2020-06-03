@@ -34,7 +34,7 @@ export class NewVehicleComponent implements OnInit {
       'date1': [null, Validators.required],
       'date2': [null, Validators.required],
       'number': [null, Validators.required],
-      'owner': [null, [Validators.required, Validators.minLength(5), Validators.maxLength(10)]],
+      'owner': [null, Validators.required],
       'validate': ''
     });
   }
